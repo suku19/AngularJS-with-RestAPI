@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html ng-app="userApp">
+<title>User Management</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/w3-theme-black.css">
+<link rel="stylesheet" href="css/font-family.roboto.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+
+<script type="text/javascript" src="js/angularLib/angular.min.js"></script>
+
+<!-- Load environment variables -->
+<script src="js/env.js"></script>
+
+<!-- Load environment variables -->
+<script src="js/jquery/jquery-3.2.1.min.js"></script>
+
+<!-- Load AngularJS application -->
+<script type="text/javascript" src="js/app.js"></script>
+<style>
+html, body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Roboto", sans-serif
+}
+</style>
+<body ng-controller="userCtrl">
+
+	<!-- Navbar -->
+	<div class="w3-top">
+		<div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+			<a
+				class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1"
+				href="javascript:void(0)" onclick="w3_open()"><i
+				class="fa fa-bars"></i></a> <a href="#"
+				class="w3-bar-item w3-button w3-theme-l1">Logo</a> <a href="#"
+				class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
+			<a href="#"
+				class="w3-bar-item w3-button w3-hide-small w3-hover-white">Values</a>
+			<a href="#"
+				class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>
+			<a href="#"
+				class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
+			<a href="#"
+				class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Clients</a>
+			<a href="#"
+				class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Partners</a>
+		</div>
+	</div>
+
+	<!-- Sidebar -->
+	<nav
+		class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left"
+		style="z-index: 3; width: 250px; margin-top: 43px;" id="mySidebar">
+		<a href="javascript:void(0)" onclick="w3_close()"
+			class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large"
+			title="Close Menu"> <i class="fa fa-remove"></i>
+		</a>
+		<h4 class="w3-bar-item">
+			<b>Menu</b>
+		</h4>
+		<a class="w3-bar-item w3-button w3-hover-black" href="#"
+			ng-click='getAllUsers()'>Get All Users</a> <a
+			class="w3-bar-item w3-button w3-hover-black" href="#"
+			ng-click='getUserId()'>Get User By Id</a> <a
+			class="w3-bar-item w3-button w3-hover-black" href="#"
+			ng-click='addUserView()'>Add User</a> <a
+			class="w3-bar-item w3-button w3-hover-black" href="#"
+			ng-click='updateUserView()'>Update User</a>
+	</nav>
+
+	<!-- Overlay effect when opening sidebar on small screens -->
+	<div class="w3-overlay w3-hide-large" onclick="w3_close()"
+		style="cursor: pointer" title="close side menu" id="myOverlay"></div>
+
+	<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+	<div class="w3-main" style="margin-left: 250px">
+
+		<div class="w3-row w3-padding-64">
+			<div class="w3-twothird w3-container">
+				<h1 class="w3-text-teal">Manage Users:</h1>
+				<table class="w3-table-all w3-card-4" ng-show="showTable">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>profession</th>
+							<th>Delete User</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr ng-repeat="user in users">
+							<td>{{user.id}}</td>
+							<td>{{user.name}}</td>
+							<td>{{user.profession}}</td>
+							<td><a href="#" ng-click=deleteUser(user.id)>Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+				<br />
+<!-- 				<div ng-show="showSelect" class="top-margin">
+					<br> <label>Select User Id</label> <select
+						ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+						ng-model="selectedUserId" ng-options="user.id for user in users"></select>
+						<p>
+							<label class="w3-text-teal"><b>Select User:</b></label> 
+							<select
+								class="w3-select" ng-init="user.id = options[0]"
+								ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+								ng-model="selectedUserId" ng-options="user.id for user in users">
+								<option value="" disabled selected>Choose your option</option>
+							</select>
+						</p>
+
+
+					<br> <span><strong>Name : </strong>{{userInfo.name}}</span> <br>
+					<span><strong>Profession : </strong>{{userInfo.profession}}</span>
+				</div> -->
+				<div class="w3-card-4" ng-show="showSelect">
+					<div class="w3-container w3-teal">
+						<h2>View User:</h2>
+					</div>
+					<!-- <br> <label>Select User Id</label> <select
+						ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+						ng-model="selectedUserId" ng-options="user.id for user in users"></select> -->
+						<div class="w3-container">
+						<p>
+							<label class="w3-text-teal"><b>Select User:</b></label> 
+							<select
+								class="w3-select" ng-init="user.id = options[0]"
+								ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+								ng-model="selectedUserId" ng-options="user.id for user in users">
+								<option value="" disabled selected>Choose your option</option>
+							</select>
+						</p>
+					
+						<div class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border">
+	    					<p><strong>Name : </strong>{{userInfo.name}}</p>
+	    					<p><strong>Profession : </strong>{{userInfo.profession}}</p>
+	    					<p><strong>email : </strong>{{userInfo.email}}</p>
+	  					</div>
+					</div>
+				</div>
+
+				<div class="w3-card-4" ng-show="addUser">
+					<div class="w3-container w3-teal">
+						<h2>Add User:</h2>
+					</div>
+					<form name="addUserForm" class="w3-container">
+						<p>
+							<label class="w3-text-teal"><b>User Name:</b></label> <input
+								class="w3-input w3-border w3-sand" type="text"
+								ng-model="model.name" ng-required="true" placeholder="Enter your Name"/>
+						</p>
+						<p>
+							<label class="w3-text-teal"><b>Profession:</b></label> <input
+								class="w3-input w3-border w3-sand" type="text"
+								ng-model="model.profession" ng-required="true" placeholder="Enter your Profession"/>
+						</p>
+						<p>
+							<label class="w3-text-teal"><b>Email Id:</b> </label> <input
+								class="w3-input w3-border w3-sand" type="text"
+								ng-model="model.email" type="email" name="email" ng-required="true" placeholder="Enter a valid email address" />
+						</p>
+						<p>
+							<button class="w3-btn w3-blue-grey"
+								ng-click="addUserForm.$valid && saveUser(addUserForm)" type="submit" value="Submit">Add
+								User</button>
+						</p>
+					</form>
+					<!-- <span><strong>Status : </strong>{{status}}</span> -->
+					<div class="w3-panel w3-pale-green w3-round-xlarge">
+						<p>{{status.message}}</p>
+					</div>
+				</div>
+
+				<div class="w3-card-4" ng-show="showUpdate" class="top-margin">
+					<div class="w3-container w3-teal">
+						<h2>Update User:</h2>
+					</div>
+					<form name="updateUserForm" class="w3-container">
+
+						<p>
+							<label class="w3-text-teal"><b>Select User:</b></label> 
+							<select
+								class="w3-select" ng-init="user.id = options[0]"
+								ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+								ng-model="selectedUserId" ng-options="user.id for user in users">
+								<option value="" disabled selected>Choose your option</option>
+							</select>
+						</p>
+						<p>
+							<label class="w3-text-teal"><b>User Name:</b></label> 
+							<input class="w3-input w3-border w3-sand" type="text"	ng-model="userInfo.name" ng-required="true" placeholder="Enter your Name"/>
+						</p>
+						<p>
+							<label class="w3-text-teal"><b>Profession:</b></label> 
+							<input class="w3-input w3-border w3-sand" type="text" ng-model="userInfo.profession" ng-required="true" placeholder="Enter your Profession"/>
+						</p>
+						<p>
+							<label class="w3-text-teal"><b>Email Id:</b> </label> 
+							<input class="w3-input w3-border w3-sand" type="text"	ng-model="userInfo.email" type="email" name="email" ng-required="true" placeholder="Enter a valid email address" />
+						</p>
+						<p>
+							<button class="w3-btn w3-blue-grey" ng-click="updateUserForm.$valid && updateUser(updateUserForm)" type="submit"
+								value="Submit">Update User</button>
+						</p>
+					</form>
+					<div class="w3-panel w3-pale-green w3-round-xlarge">
+						<p>{{status.message}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="w3-third w3-container">
+				<p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+				<p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+			</div>
+		</div>
+
+		<!-- <div class="w3-row">
+			<div class="w3-twothird w3-container">
+				<h1 class="w3-text-teal">Heading</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+					do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+					enim ad minim veniam, quis nostrud exercitation ullamco laboris
+					nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit
+					amet, consectetur adipisicing elit, sed do eiusmod tempor
+					incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+					veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+					ex ea commodo consequat.</p>
+			</div>
+			<div class="w3-third w3-container">
+				<p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+				<p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+			</div>
+		</div>
+
+		<div class="w3-row w3-padding-64">
+			<div class="w3-twothird w3-container">
+				<h1 class="w3-text-teal">Heading</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+					do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+					enim ad minim veniam, quis nostrud exercitation ullamco laboris
+					nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit
+					amet, consectetur adipisicing elit, sed do eiusmod tempor
+					incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+					veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+					ex ea commodo consequat.</p>
+			</div>
+			<div class="w3-third w3-container">
+				<p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+				<p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+			</div>
+		</div> -->
+
+		<!-- Pagination -->
+		<!--<div class="w3-center w3-padding-32">
+			<div class="w3-bar">
+				<a class="w3-button w3-black" href="#">1</a> <a
+					class="w3-button w3-hover-black" href="#">2</a> <a
+					class="w3-button w3-hover-black" href="#">3</a> <a
+					class="w3-button w3-hover-black" href="#">4</a> <a
+					class="w3-button w3-hover-black" href="#">5</a> <a
+					class="w3-button w3-hover-black" href="#">»</a>
+			</div>
+		</div> -->
+		<img id="spinner" ng-src="img/blank-spinner.gif" style="display:none;">
+		<footer id="myFooter">
+			<div class="w3-container w3-theme-l2 w3-padding-32">
+				<h4>Footer</h4>
+			</div>
+
+			<div class="w3-container w3-theme-l1">
+				<p>
+					Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+						target="_blank">w3.css</a>
+				</p>
+			</div>
+		</footer>
+
+		<!-- END MAIN -->
+	</div>
+
+	<script>
+		// Get the Sidebar
+		var mySidebar = document.getElementById("mySidebar");
+
+		// Get the DIV with overlay effect
+		var overlayBg = document.getElementById("myOverlay");
+
+		// Toggle between showing and hiding the sidebar, and add overlay effect
+		function w3_open() {
+			if (mySidebar.style.display === 'block') {
+				mySidebar.style.display = 'none';
+				overlayBg.style.display = "none";
+			} else {
+				mySidebar.style.display = 'block';
+				overlayBg.style.display = "block";
+			}
+		}
+
+		// Close the sidebar with the close button
+		function w3_close() {
+			mySidebar.style.display = "none";
+			overlayBg.style.display = "none";
+		}
+	</script>
+
+</body>
+</html>

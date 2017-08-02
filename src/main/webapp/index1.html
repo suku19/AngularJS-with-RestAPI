@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="userApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Management</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/angularLib/angular.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+	<div ng-controller="userCtrl">
+		<button type="button" class="btn btn-info" ng-click='getAllUsers()'>Get
+			All Users</button>
+
+		<button type="button" class="btn btn-info" ng-click='getUserId()'>Get
+			User By Id</button>
+
+		<button type="button" class="btn btn-info" ng-click='addUserView()'>Add
+			User</button>
+		<button type="button" class="btn btn-info" ng-click='updateUserView()'>Update User</button>
+
+		<table
+			class="table table-striped table-bordered table-hover table-condensed top-margin"
+			ng-show="showTable">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>profession</th>
+					<th>Delete User</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in users">
+					<td>{{user.id}}</td>
+					<td>{{user.name}}</td>
+					<td>{{user.profession}}</td>
+					<td><a href="#" ng-click=deleteUser(user.id)>Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+		<div ng-show="showSelect" class="top-margin">
+			<br> <label>Select User Id</label> <select
+				ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+				ng-model="selectedUserId" ng-options="user.id for user in users"></select>
+
+
+			<br>
+			<span><strong>Name : </strong>{{userInfo.name}}</span> <br>
+			<span><strong>Profession : </strong>{{userInfo.profession}}</span>
+		</div>
+
+		<div ng-show="addUser" class="top-margin">
+			<form name="myTestForm" novalidate >
+				User Id:
+                <input type="text" ng-model="model.id" required /><br>
+                User Name:
+                <input type="text" ng-model="model.name" required /><br>
+                Profession:
+                <input type="text" ng-model="model.profession" required /><br>
+                <input ng-click="saveUser(myTestForm)" type="submit" value="Submit">
+            </form>
+			<br>
+			<span><strong>Status : </strong>{{status}}</span>
+		</div>
+		
+		<div ng-show="showUpdate" class="top-margin">
+			<form name="updateUserForm" novalidate >
+				<br> <label>Select User Id</label> <select
+				ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+				ng-model="selectedUserId" ng-options="user.id for user in users"></select>
+                <br>User Name:
+                <input type="text" ng-model="userInfo.name" required /><br>
+                Last profession:
+                <input type="text" ng-model="userInfo.profession" required /><br>
+                <input ng-click="updateUser(updateUserForm)" type="submit" value="Submit">
+            </form>
+			<br>
+			<span><strong>Status : </strong>{{status}}</span>
+		</div>
+
+	</div>
+</body>
+</html>
