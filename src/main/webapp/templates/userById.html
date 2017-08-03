@@ -1,0 +1,31 @@
+<div class="w3-card-4" >
+	<div class="w3-container w3-teal">
+		<h2>View User:</h2>
+	</div>
+	<!-- <br> <label>Select User Id</label> <select
+						ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+						ng-model="selectedUserId" ng-options="user.id for user in users"></select> -->
+	<div class="w3-container">
+		<p>
+			<label class="w3-text-teal"><b>Select User:</b></label> <select
+				class="w3-select" ng-init="user.id = options[0]"
+				ng-class="form-control" ng-change="getUserByID(selectedUserId)"
+				ng-model="selectedUserId" ng-options="user.id for user in users">
+				<option value="" disabled selected>Choose your option</option>
+			</select>
+		</p>
+
+		<div
+			class="w3-panel w3-pale-green w3-bottombar w3-border-green w3-border">
+			<p>
+				<strong>Name : </strong>{{userInfo.name}}
+			</p>
+			<p>
+				<strong>Profession : </strong>{{userInfo.profession}}
+			</p>
+			<p>
+				<strong>email : </strong>{{userInfo.email}}
+			</p>
+		</div>
+	</div>
+</div>

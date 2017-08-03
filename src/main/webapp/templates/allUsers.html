@@ -1,0 +1,19 @@
+<table class="w3-table-all w3-card-4" >
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>profession</th>
+			<th>Delete User</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr ng-repeat="user in users">
+			<td>{{user.id}}</td>
+			<td>{{user.name}}</td>
+			<td>{{user.profession}}</td>
+			<td><a href="#/view" ng-click=deleteUser(user.id)>Delete</a></td>
+		</tr>
+	</tbody>
+</table>
