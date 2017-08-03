@@ -149,7 +149,7 @@ userApp.config(function($routeProvider,$locationProvider) {
 		controller : 'allUserController'
 	})
 
-	// route for the view page
+	// route for the view by id page
 	.when('/viewid', {
 		templateUrl : 'templates/userById.html',
 		controller : 'userByIdController'
@@ -260,15 +260,18 @@ var getAllUsers = function($scope, userService) {
 }
 
 var getUserByID = function($scope, userService,id) {
+	$scope.userInfo={};
+	$("#spinner").show();
 	var userPromise = userService.getUserInfo(id);
 
 	userPromise.then(
 
 	function(response) {
-
+		$("#spinner").hide();
 		$scope.userInfo = response.data;
 		console.log("Success : getUserById" + $scope.users)
 	}, function(error) {
+		$("#spinner").hide();
 		console.log("Failed : getUserById" + error)
 	});
 }
