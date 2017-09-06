@@ -7,7 +7,10 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/w3-theme-black.css">
 <link rel="stylesheet" href="css/font-family.roboto.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="css/font-awesome.min.css"> -->
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
 
 <script type="text/javascript" src="js/angularLib/angular.min.js"></script>
 <script type="text/javascript" src="js/angularLib/angular-route.js"></script>
@@ -60,10 +63,12 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		<h4 class="w3-bar-item">
 			<b>Menu</b>
 		</h4>
-		<a class="w3-bar-item w3-button w3-hover-black" href="#/view">Get All Users</a> 
-		<a class="w3-bar-item w3-button w3-hover-black" href="#/viewid">Get User By Id</a> 
-		<a	class="w3-bar-item w3-button w3-hover-black" href="#/add">Add User</a> 
-		<a	class="w3-bar-item w3-button w3-hover-black" href="#/update">Update User</a>
+		<a class="w3-bar-item w3-button w3-hover-black" href="#/view">Get
+			All Users</a> <a class="w3-bar-item w3-button w3-hover-black"
+			href="#/viewid">Get User By Id</a> <a
+			class="w3-bar-item w3-button w3-hover-black" href="#/add">Add
+			User</a> <a class="w3-bar-item w3-button w3-hover-black" href="#/update">Update
+			User</a>
 	</nav>
 
 	<!-- Overlay effect when opening sidebar on small screens -->
@@ -76,11 +81,11 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		<div class="w3-row w3-padding-64">
 			<div class="w3-twothird w3-container">
 				<h1 class="w3-text-teal">Manage Users:</h1>
-				
+
 				<!-- angular templating -->
 				<!-- this is where content will be injected -->
-    			<div ng-view></div>
-    			
+				<div ng-view></div>
+
 			</div>
 			<div class="w3-third w3-container">
 				<p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
@@ -88,10 +93,10 @@ html, body, h1, h2, h3, h4, h5, h6 {
 			</div>
 		</div>
 
-		<div id="spinner" style="margin: 0px; display:none; padding: 0px; position: fixed; right: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(102, 102, 102); z-index: 30001; opacity: 0.8;">
+		<div id="spinner"
+			style="margin: 0px; display: none; padding: 0px; position: fixed; right: 0px; top: 0px; width: 100%; height: 100%; background-color: rgb(102, 102, 102); z-index: 30001; opacity: 0.8;">
 			<p style="position: absolute; color: White; top: 50%; left: 45%;">
-				Loading, please wait...
-				<img src="img/loader.gif">
+				Loading, please wait... <img src="img/loader.gif">
 			</p>
 		</div>
 		<footer id="myFooter">
@@ -103,10 +108,16 @@ html, body, h1, h2, h3, h4, h5, h6 {
 				<p>
 					Developed by <B>Sukanta Mondal</B>
 				</p>
-				<a href="www.facebook.com/Sukanta.suku" class="fa fa-facebook"></a>
-				<a href="plus.google.com/u/0/114250830033538939896" class="fa fa-google"></a>
-				<a href="www.linkedin.com/in/sukanta-mondal/" class="fa fa-linkedin"></a>
-				<a href="github.com/suku19" ><img src="img/git-logo.png" style="height: 60%; width: 40%;"/></a>
+
+				<a href="https://github.com/suku19" class="icoRss" title="GitHub"><i
+					class="fa fa-rss"></i></a> <a
+					href="https://www.facebook.com/Sukanta.suku" class="icoFacebook"
+					title="Facebook"><i class="fa fa-facebook"></i></a> <a
+					href="https://plus.google.com/u/0/114250830033538939896"
+					class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a>
+				<a href="https://www.linkedin.com/in/sukanta-mondal/"
+					class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+
 			</div>
 		</footer>
 
